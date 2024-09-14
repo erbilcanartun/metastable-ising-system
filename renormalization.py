@@ -284,6 +284,39 @@ class RenormalizationGroup:
             n = n + 1
     
         return np.array(L_results), np.array(M_results)
-
-
-
+    
+    def hysteresis(self, j_input, L_input):
+        
+        H_list = [[], []]
+        M_list = [[], []]
+        
+        Mn = [[1, 1, -2], [1, 1, 2]]
+        
+        n = int(np.log2(L_input) - 1)
+        
+        for k in range(2):
+            
+            hi = -4
+            while hi <= 4:
+                h = hi
+                j = j_input
+                
+                U = np.identity(3)
+                U = self.neigen * np.dot(self._recursion_matrix_1(j, h), U)
+                j, h = self.J_1(j,h), self.H_1(j,h)
+                
+                for i in range(n):
+                    U = self.neigen * np.dot(self._recursion_matrix(j, h), U)
+                    j, h = self.J(j,h), self.H(j,h)
+                M = np.dot(Mn[k], U)
+                
+                M_list[k].append(M[2])
+                H_list[k].append(hi)
+                
+                hi = hi + 0.01
+        
+    
+        return np.array(H_list), np.array(M_list)
+    
+    
+    
