@@ -254,3 +254,36 @@ class RenormalizationGroup:
                     j_initial = j_initial + 1
 
             return np.array(temp_list), np.array(M_results)
+
+    def droplet(self, j_input, h_input, iteration=15):
+        
+        M_results = []
+        L_results = []
+        
+        Mn = [1, 1, -2]
+    
+        N = iteration
+        n = 0
+        
+        for k in range(N):
+            j = j_input
+            h = h_input
+            
+            U = np.identity(3)
+           
+            U = self.neigen * np.dot(self._recursion_matrix_1(j, h), U)
+            j, h = self.J_1(j,h), self.H_1(j,h)
+            
+            for i in range(n):
+                U = self.neigen * np.dot(self._recursion_matrix(j, h), U) 
+                j, h = self.J(j,h), self.H(j,h)
+            M = np.dot(Mn, U)
+    
+            M_results.append(M)
+            L_results.append(2 ** (n + 1))
+            n = n + 1
+    
+        return np.array(L_results), np.array(M_results)
+
+
+
