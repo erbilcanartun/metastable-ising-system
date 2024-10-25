@@ -30,7 +30,7 @@ During the reproduction of the results, discrepancies were identified in the cal
         <em style="color: #666;">Metastable Droplets</em>
       </td>
       <td style="padding: 20px;">
-        <img src="./images/hysteresis_loops.png" width="500" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"><br>
+        <img src="./figures/hysteresis_loops.png" width="500" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"><br>
         <em style="color: #666;">Hysteresis Loops</em>
       </td>
     </tr>
