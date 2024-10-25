@@ -7,9 +7,9 @@ class RenormalizationGroup:
 
         self.b = 2 # Decimation
         self.d = 3 # Dimension
-        
+
         self.m = self.b**(self.d - 1) # Bond-moving multiplier
-        
+
         self.eigen = self.b ** self.d
         self.neigen = self.b ** (-self.d)
 
@@ -130,7 +130,7 @@ class RenormalizationGroup:
                          [0,          Y,   B],
                          [0,          Z,   C]])
 
-    
+
     def flow(self, interaction, field, n, output=False):
 
         j, h = interaction, field
@@ -143,7 +143,7 @@ class RenormalizationGroup:
             print(f"{0}   {j}         {h}")
 
         j, h = self.J_1(j,h), self.H_1(j,h)
-                    
+
         for i in range(1, n + 1):
 
             j, h = self.J(j,h), self.H(j,h)
@@ -190,133 +190,129 @@ class RenormalizationGroup:
                 temp_list.append(1 / j)
 
                 U = np.identity(3)
-        
+
                 if h == 0:
                     if j < self.Jc:
                         Mn = [1, 0, 0]
-                        
+
                         U = self.neigen * np.dot(self._recursion_matrix_1(j, h), U)
                         j, h = self.J_1(j, h), self.H_1(j, h)
                         while j > 0:
                             U = self.neigen * np.dot(self._recursion_matrix(j, h), U)
                             j, h = self.J(j, h), self.H(j, h)
                         M = np.dot(Mn, U)
-                    
+
                     elif j > self.Jc:
                         Mn = [1, 1, 2]
-                        
+
                         U = self.neigen * np.dot(self._recursion_matrix_1(j, h), U)
                         j, h = self.J_1(j, h), self.H_1(j, h)
                         while j < 1000:
                             U = self.neigen * np.dot(self._recursion_matrix(j, h), U)
                             j, h = self.J(j, h), self.H(j, h)
                         M = np.dot(Mn, U)
-                
+
                 else:
                     if h > 0:
                         Mn = [1, 1, 2]
-                        
+
                     elif h < 0:
                         Mn = [1, 1, -2]
-                    
+
                     U = self.neigen * np.dot(self._recursion_matrix_1(j, h), U)
                     j, h = self.J_1(j, h), self.H_1(j, h)
-                    
+
                     js, hs = j, h
                     count = 1
                     while j > 0:
                         j, h = self.J(j, h), self.H(j, h)
                         count = count + 1
                     j, h = js, hs
-                    
+
                     for i in range(count):
                         U = self.neigen * np.dot(self._recursion_matrix(j, h), U)
                         j, h = J(j, h), H(j, h)
                     M = np.dot(Mn, U)
-                
+
                 M_results.append(M)
 
                 #j_initial = j_initial + 0.01
-                
+
                 if j_initial < self.Jc - 0.01:
                     j_initial = j_initial + 0.001
-                
+
                 elif j_initial < self.Jc + 0.01:
                     j_initial = j_initial + 0.0001
-                
+
                 elif j_initial < self.Jc + 0.3:
                     j_initial = j_initial + 0.01
-                
+
                 elif j_initial < self.Jc + 0.5:
                     j_initial = j_initial + 0.01
-                
+
                 else:
                     j_initial = j_initial + 1
 
             return np.array(temp_list), np.array(M_results)
 
     def droplet(self, j_input, h_input, iteration=15):
-        
+
         M_results = []
         L_results = []
-        
+
         Mn = [1, 1, -2]
-    
+
         N = iteration
         n = 0
-        
+
         for k in range(N):
             j = j_input
             h = h_input
-            
+
             U = np.identity(3)
-           
+
             U = self.neigen * np.dot(self._recursion_matrix_1(j, h), U)
             j, h = self.J_1(j,h), self.H_1(j,h)
-            
+
             for i in range(n):
                 U = self.neigen * np.dot(self._recursion_matrix(j, h), U) 
                 j, h = self.J(j,h), self.H(j,h)
             M = np.dot(Mn, U)
-    
+
             M_results.append(M)
             L_results.append(2 ** (n + 1))
             n = n + 1
-    
+
         return np.array(L_results), np.array(M_results)
-    
+
     def hysteresis(self, j_input, L_input):
-        
+
         H_list = [[], []]
         M_list = [[], []]
-        
+
         Mn = [[1, 1, -2], [1, 1, 2]]
-        
+
         n = int(np.log2(L_input) - 1)
-        
+
         for k in range(2):
-            
+
             hi = -4
             while hi <= 4:
                 h = hi
                 j = j_input
-                
+
                 U = np.identity(3)
                 U = self.neigen * np.dot(self._recursion_matrix_1(j, h), U)
                 j, h = self.J_1(j,h), self.H_1(j,h)
-                
+
                 for i in range(n):
                     U = self.neigen * np.dot(self._recursion_matrix(j, h), U)
                     j, h = self.J(j,h), self.H(j,h)
                 M = np.dot(Mn[k], U)
-                
+
                 M_list[k].append(M[2])
                 H_list[k].append(hi)
-                
+
                 hi = hi + 0.01
-        
-    
+
         return np.array(H_list), np.array(M_list)
-    
-    
-    
