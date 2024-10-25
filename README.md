@@ -39,9 +39,9 @@ During the reproduction of the results, discrepancies were identified in the cal
 
 The repository reproduces the key results from the paper:
 
-- *Metastable droplet sizes* as a function of the external magnetic field and droplet size. Resulting figure shows magnetization inside a would-be droplet of negative magnetization immersed in the positive magnetization phase, as a function of droplet size. Results for diﬀerent magnetic fields are provided. A droplet is a finite region of the opposite thermodynamic phase persisting inside the equilibrium phase. Even as a metastable region, a droplet can exist up to a certain (critical) size, depending on how far away, in the thermodynamic external (applied) variables, the system is from the boundary in thermodynamic space where the phase of the droplet becomes stable. The
+- **Metastable droplet sizes** as a function of the external magnetic field and droplet size. Resulting figure shows magnetization inside a would-be droplet of negative magnetization immersed in the positive magnetization phase, as a function of droplet size. Results for diﬀerent magnetic fields are provided. A droplet is a finite region of the opposite thermodynamic phase persisting inside the equilibrium phase. Even as a metastable region, a droplet can exist up to a certain (critical) size, depending on how far away, in the thermodynamic external (applied) variables, the system is from the boundary in thermodynamic space where the phase of the droplet becomes stable. The
 further away, the smaller the maximal droplet size, up to a certain limit, beyond which metastable droplets do not exist. This critical droplet size and this limit of metastable droplet existence are obtained, based on a microscopic statistical mechanical (renormalization-group) calculation.
-- *Hysteresis loops* for systems of varying size at constant temprature. Hysteresis loops occurs in systems composed of finite microdomains. As the magnetization measurements/calculations are made, the system carries a memory of the previous measurement/calculation.
+- **Hysteresis loops** for systems of varying size at constant temprature. Hysteresis loops occurs in systems composed of finite microdomains. As the magnetization measurements/calculations are made, the system carries a memory of the previous measurement/calculation.
 
 The corrected results offer improved accuracy in the droplet size calculations, especially near the critical thresholds of the system.
 
@@ -52,4 +52,4 @@ The corrected results offer improved accuracy in the droplet size calculations, 
 
 ## License
 
-This project is licensed under the MIT License. For details, see the [LICENSE] file.
+This project is licensed under the MIT License. For details, see the [LICENSE](LICENSE) file.
