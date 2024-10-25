@@ -1,6 +1,6 @@
 # Metastable Ising System
 
-This repository contains the implementation and corrections of the calculations presented in the paper titled *"Metastable reverse-phase droplets within ordered phases: Renormalization-group calculation of field and temperature dependence of limiting size"* (Ege Eren & A. Nihat Berker, [PhysRevE.101.042127](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.101.042127)).
+This repository contains the implementation and corrections of the calculations presented in the paper titled *"Metastable reverse-phase droplets within ordered phases: Renormalization-group calculation of field and temperature dependence of limiting size"* (Ege Eren & A. Nihat Berker, Phys. Rev. E 101, 042127. DOI: [10.1103/PhysRevE.101.042127](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.101.042127)).
 
 ## Overview
 
